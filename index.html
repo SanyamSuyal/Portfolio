@@ -1,180 +1,496 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanyam Suyal | Portfolio</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: white;
-            color: #000;
-            text-align: center;
-            position: relative;
-            overflow-y: scroll;
-            scrollbar-width: thin;
-            scrollbar-color: #ff8a00 #f0f0f0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sanyam Suyal - Portfolio</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+  <style>
+    /* General Styles */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
 
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
+    /* Loading Screen */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      z-index: 10000;
+    }
 
-        ::-webkit-scrollbar-track {
-            background: #f0f0f0;
-            border-radius: 10px;
-        }
+    /* Navigation Bar */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px 20px;
+      border-radius: 20px;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
 
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(90deg, #ff8a00, #ffcc00);
-            border-radius: 10px;
-        }
-        
-        header {
-            padding: 50px;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-        
-        .name {
-            font-size: 8vw; /* Responsive font size */
-            font-weight: bold;
-            color: orange;
-            margin: 10px 0;
-            padding: 20px;
-            display: inline-block;
-            background-color: rgb(252, 252, 252);
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            position: relative;
-        }
-        
-        .name::after {
-            content: "\"Code is like humor. When you have to explain it, it’s bad.\"";
-            display: block;
-            font-size: 1rem;
-            color: black;
-            font-style: italic;
-            margin-top: 10px;
-        }
-        
-        .name:hover {
-            transform: scale(1.1);
-            background: linear-gradient(45deg, rgb(224, 121, 18), #0e0d0d00);
-            color: orange;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
-        }
-        
-        .flowchart {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            justify-content: center;
-            padding: 50px;
-        }
-        
-        .block {
-            padding: 30px;
-            background: #e0e0e0;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, background 0.3s ease;
-            cursor: pointer;
-            color: #333;
-        }
-        
-        .block:hover {
-            transform: scale(1.1);
-            background: rgb(225, 135, 10);
-            color: white;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-        }
-        
-        h1, h2 {
-            color: #cd611e;
-        }
-        
-        .skills-project {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-        
-        .contact-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background: linear-gradient(90deg, #ff8a00, #ffcc00);
-            color: black;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-        
-        .btn:hover {
-            transform: scale(1.1);
-        }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
 
-        /* Media Queries for further adjustments */
-        @media (max-width: 768px) {
-            .name {
-                font-size: 10vw; /* Increase size for smaller screens */
-            }
-        }
+    nav a:hover {
+      color: #ff6f61;
+    }
 
-        @media (max-width: 480px) {
-            .name {
-                font-size: 12vw; /* Further increase for very small screens */
-            }
-        }
-    </style>
+    /* Logo */
+    #logo {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #333;
+      z-index: 1000;
+      background: #fff;
+      padding: 10px 20px;
+      border-radius: 50px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Social Links */
+    #social-links {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    #social-links a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    #social-links a:hover {
+      color: #ff6f61;
+    }
+
+    /* Sections */
+    section {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    /* Page 1: Creative Quote */
+    #page1 {
+      background: #ffeb3b;
+      color: #333;
+      flex-direction: column;
+    }
+
+    #page1 h1 {
+      font-size: 4rem;
+      font-weight: bold;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    #page1 p {
+      font-size: 1.5rem;
+      max-width: 800px;
+      margin-top: 20px;
+    }
+
+    /* Page 2: Video Cartoon */
+    #page2 {
+      background: #000;
+      color: #fff;
+      flex-direction: column;
+    }
+
+    #page2 video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    #page2 h1 {
+      font-size: 3rem;
+      color: #ff6f61;
+      animation: slideIn 1.5s ease-in-out;
+    }
+
+    #page2 p {
+      font-size: 1.5rem;
+      max-width: 800px;
+      margin-top: 20px;
+    }
+
+    /* Page 3: About Me */
+    #page3 {
+      background: #000;
+      color: #fff;
+      flex-direction: column;
+      padding: 50px;
+    }
+
+    #page3 .intro {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    #page3 .intro img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #ff6f61;
+    }
+
+    #page3 h1 {
+      font-size: 3rem;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    #page3 p {
+      font-size: 1.5rem;
+      max-width: 800px;
+      margin-top: 20px;
+    }
+
+    #typing-text {
+      font-size: 2rem;
+      color: #ff6f61;
+      font-weight: bold;
+    }
+
+    /* Page 4: Skills and Projects */
+    #page4 {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+      flex-direction: column;
+    }
+
+    #skills-projects {
+      display: flex;
+      gap: 40px;
+    }
+
+    #skills-box, #projects-box {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 20px;
+      width: 400px;
+      text-align: center;
+    }
+
+    #skills-box h2, #projects-box h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    #skills-box p, #projects-box p {
+      font-size: 1.5rem;
+      margin-top: 20px;
+    }
+
+    #projects-box img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    /* Page 5: Reviews */
+    #page5 {
+      background: #fff;
+      color: #333;
+      flex-direction: column;
+      padding: 50px;
+    }
+
+    .review {
+      background: #f4f4f4;
+      padding: 30px;
+      border-radius: 20px;
+      margin: 20px;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .review p {
+      font-size: 1.5rem;
+      font-style: italic;
+    }
+
+    .review h3 {
+      font-size: 1.5rem;
+      margin-top: 20px;
+    }
+
+    /* Page 6: Hire Me Form */
+    #page6 {
+      background: linear-gradient(135deg, #ff6f61, #ffeb3b);
+      color: #fff;
+    }
+
+    #hire-form {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 20px;
+      width: 500px;
+      text-align: center;
+    }
+
+    #hire-form input, #hire-form textarea {
+      width: 100%;
+      padding: 15px;
+      margin: 15px 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    #hire-form button {
+      background: #ff6f61;
+      color: #fff;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    #hire-form button:hover {
+      background: #ff3b2f;
+    }
+
+    /* Floating Hire Me Button */
+    #hire-me {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ff6f61;
+      color: #fff;
+      padding: 15px 25px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    #hire-me:hover {
+      transform: scale(1.1);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div  height:20px class="name">SANYAM SUYAL </div>
-    </header>
-    
-    <div class="flowchart">
-        <div class="block">
-            <h2>Introduction</h2>
-            <p>I'm <strong>Sanyam Suyal</strong>, a passionate developer with expertise in Game Development, Web Development, and Bot Creation. I have worked extensively in designing and developing interactive gaming experiences, crafting automation tools, and building modern web applications. My goal is to combine creativity with technology to develop engaging and efficient digital solutions.</p>
-        </div>
-        
-        <div class="skills-project">
-            <div class="block">
-                <h2>Skills</h2>
-                <p>✔ Game Development (Roblox, Minecraft, Unity) <br>✔ Web Development (HTML, CSS, JS, React, Node.js) <br>✔ Automation & Bots (Discord.js, Python) <br>✔ Programming Languages (Java, C++, Python)</p>
-            </div>
-            
-            <div class="block">
-                <h2>Projects</h2>
-                <p>🎮 Hero Havoc (100M+ visits, 10M+ Robux) <br>🤖 Discord Bots for 50K+ servers <br>🌍 Portfolio Website (this one!)</p>
-            </div>
-        </div>
-        
-        <div class="block">
-            <h2>Contact Me</h2>
-            <p>Feel free to reach out!</p>
-            <div class="contact-buttons">
-                <button class="btn" onclick="location.href='mailto:your-email@example.com'">Email Me</button>
-                <button class="btn" onclick="location.href='tel:+1234567890'">Call Me</button>
-            </div>
-        </div>
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    Loading...
+  </div>
+
+  <!-- Logo -->
+  <div id="logo">Sanyam Suyal</div>
+
+  <!-- Social Links -->
+  <div id="social-links">
+    <a href="https://github.com/SanyamSuyal" target="_blank">GitHub</a>
+    <a href="https://discord.com/users/ur_lost" target="_blank">Discord</a>
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <a href="#page1">Home</a>
+    <a href="#page2">Tech</a>
+    <a href="#page3">About</a>
+    <a href="#page4">Skills</a>
+    <a href="#page5">Reviews</a>
+    <a href="#page6">Hire Me</a>
+  </nav>
+
+  <!-- Page 1: Creative Quote -->
+  <section id="page1">
+    <h1>"Dream Big, Work Hard"</h1>
+    <p>Welcome to my portfolio! I'm Sanyam Suyal, a passionate developer who loves creating innovative and user-friendly applications. Let's build something amazing together!</p>
+  </section>
+
+  <!-- Page 2: Video Cartoon -->
+  <section id="page2">
+    <video autoplay muted loop>
+      <source src="videos/idk.mp4" type="video/mp4">
+      <source src="videos/idk.webm" type="video/webm">
+      <source src="videos/idk.ogv" type="video/ogg">
+      Your browser does not support the video tag.
+    </video>
+    <h1>"Innovation is the key to the future"</h1>
+    <p>Technology is constantly evolving, and I'm here to stay ahead of the curve. Let's create something extraordinary!</p>
+  </section>
+
+  <!-- Page 3: About Me -->
+  <section id="page3">
+    <div class="intro">
+      <img src="https://media.discordapp.net/attachments/1278373705713586197/1312469918545088584/9da73f5e1d3dfc0e02280b5c346b7c29.png?ex=67b9601d&is=67b80e9d&hm=1401e6a719cfe205c61b757b9ee99bd43da0d26cb9acec136f10a93fb8a4d33d&=&format=webp&quality=lossless&width=479&height=479" alt="Sanyam Suyal">
+      <div>
+        <h1>Hi, I'm Sanyam Suyal</h1>
+        <p id="typing-text"></p>
+      </div>
     </div>
+    <p>A creative developer with a passion for innovation. I specialize in building modern, user-friendly, and high-performance applications.</p>
+  </section>
+
+  <!-- Page 4: Skills and Projects -->
+  <section id="page4">
+    <div id="skills-projects">
+      <div id="skills-box">
+        <h2>Skills</h2>
+        <h2 id="skill">Java</h2>
+        <p id="skill-quote">"I have extensive experience in Java, building robust and scalable applications."</p>
+      </div>
+      <div id="projects-box">
+        <h2>Projects</h2>
+        <h2 id="project">Reaction Time Checker</h2>
+        <p id="project-quote">"A fun and interactive game to test your reaction time."</p>
+        <img src="https://via.placeholder.com/400x200" alt="Reaction Time Checker">
+      </div>
+    </div>
+  </section>
+
+  <!-- Page 5: Reviews -->
+  <section id="page5">
+    <div class="review">
+      <p>"Highly skilled, professional, and exceptional results!."</p>
+      <h3>- Sunil Shah </h3>
+    </div>
+    <div class="review">
+      <p>"Creative, reliable, and exceeded all expectations!"</p>
+      <h3>- Robert Lam </h3>
+    </div>
+  </section>
+
+  <!-- Page 6: Hire Me Form -->
+  <section id="page6">
+    <form id="hire-form">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea placeholder="Your Message" rows="4" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <!-- Floating Hire Me Button -->
+  <a href="#page6" id="hire-me">Hire Me</a>
+
+  <!-- JavaScript -->
+  <script>
+    // Loading Screen
+    setTimeout(() => {
+      document.getElementById("loading-screen").style.display = "none";
+    }, 5000); // 5 seconds
+
+    // Skills and Projects Cycling
+    const skills = [
+      { skill: "Java", quote: "I have extensive experience in Java, building robust and scalable applications." },
+      { skill: "C++", quote: "I'm proficient in C++ for high-performance systems and game development." },
+      { skill: "Python", quote: "I use Python for data analysis, automation, and web development." },
+      { skill: "JavaScript", quote: "I build dynamic and interactive web applications using JavaScript." },
+      { skill: "HTML", quote: "I create structured and semantic web pages with HTML." },
+      { skill: "CSS", quote: "I design beautiful and responsive user interfaces with CSS." },
+      { skill: "Lua", quote: "I use Lua for scripting in game development and embedded systems." },
+    ];
+
+    const projects = [
+      { project: "Reaction Time Checker", quote: "A fun and interactive game to test your reaction time.", link: "https://sanyamsuyal.github.io/Reaction-Time-Checker/", image: "https://via.placeholder.com/400x200" },
+      { project: "Typing Game", quote: "A challenging typing game to improve your typing speed.", link: "https://github.com/SanyamSuyal/Typing-game", image: "https://via.placeholder.com/400x200" },
+      { project: "Sanyam Mart", quote: "An e-commerce website showcasing my front-end development skills.", link: "https://sanyamsuyal.github.io/Sanyam-Mart/", image: "https://via.placeholder.com/400x200" },
+    ];
+
+    let currentSkill = 0;
+    let currentProject = 0;
+    const skillElement = document.getElementById("skill");
+    const skillQuoteElement = document.getElementById("skill-quote");
+    const projectElement = document.getElementById("project");
+    const projectQuoteElement = document.getElementById("project-quote");
+    const projectImageElement = document.getElementById("projects-box").querySelector("img");
+
+    function updateSkill() {
+      skillElement.textContent = skills[currentSkill].skill;
+      skillQuoteElement.textContent = skills[currentSkill].quote;
+      currentSkill = (currentSkill + 1) % skills.length;
+    }
+
+    function updateProject() {
+      projectElement.textContent = projects[currentProject].project;
+      projectQuoteElement.textContent = projects[currentProject].quote;
+      projectImageElement.src = projects[currentProject].image;
+      projectElement.onclick = () => window.open(projects[currentProject].link, "_blank");
+      currentProject = (currentProject + 1) % projects.length;
+    }
+
+    setInterval(updateSkill, 3000); // Change skill every 3 seconds
+    setInterval(updateProject, 3000); // Change project every 3 seconds
+
+    // Typing Effect for Introduction
+    const typingText = document.getElementById("typing-text");
+    const texts = ["I am a Web Dev", "I am a Game Dev", "I am an App Dev"];
+    let textIndex = 0;
+    let charIndex = 0;
+
+    function type() {
+      if (charIndex < texts[textIndex].length) {
+        typingText.textContent += texts[textIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(type, 100);
+      } else {
+        setTimeout(erase, 2000);
+      }
+    }
+
+    function erase() {
+      if (charIndex > 0) {
+        typingText.textContent = texts[textIndex].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(erase, 50);
+      } else {
+        textIndex = (textIndex + 1) % texts.length;
+        setTimeout(type, 500);
+      }
+    }
+
+    type(); // Start typing effect
+  </script>
 </body>
-</html
+</html>
