@@ -1,0 +1,21 @@
+[build]
+builder = "NIXPACKS"
+nixpacksVersion = "1.13.0"
+buildCommand = "./deploy-railway.sh"
+
+[deploy]
+numReplicas = 1
+sleepApplication = true
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
+[functions]
+nodeVersion = "20"
+
+[[services]]
+name = "web"
+internal_port = 5000
+health_check_path = "/api/health"
+health_check_timeout_seconds = 10
+health_check_interval_seconds = 10
+start_command = "node dist/index.js"
